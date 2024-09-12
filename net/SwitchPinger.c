@@ -238,6 +238,7 @@ static void sendPing(String* data, void* sendPingContext)
         pingHeader->magic = Control_Ping_MAGIC;
         pingHeader->version_be = Endian_hostToBigEndian32(Version_CURRENT_PROTOCOL);
 
+        /*
     } else if (p->pub.type == SwitchPinger_Type_GETSNODE) {
         Er_assert(Message_epush(msg, NULL, Control_GetSnode_HEADER_SIZE));
         struct Control_GetSnode* hdr = (struct Control_GetSnode*) msg->msgbytes;
@@ -256,7 +257,7 @@ static void sendPing(String* data, void* sendPingContext)
         hdr->version_be = Endian_hostToBigEndian32(Version_CURRENT_PROTOCOL);
         uint64_t path_be = Endian_hostToBigEndian64(p->label);
         Bits_memcpy(hdr->rpath_be, &path_be, 8);
-
+*/
     } else {
         Assert_failure("unexpected ping type");
     }

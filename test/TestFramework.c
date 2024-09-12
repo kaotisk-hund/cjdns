@@ -161,7 +161,7 @@ struct TestFramework* TestFramework_setUp(char* privateKey,
     #ifndef SUBNODE
         tf->pathfinder = pf;
     #endif
-    tf->subnodePathfinder = spf;
+    //tf->subnodePathfinder = spf;
     tf->scheme = scheme;
 
     return tf;

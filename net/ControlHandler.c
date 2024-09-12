@@ -138,6 +138,7 @@ static Iface_DEFUN handlePing(struct Message* msg,
 /**
  * Expects [ SwitchHeader ][ Ctrl ][ RPath ][ data etc.... ]
  */
+/*
 #define handleRPathQuery_MIN_SIZE (Control_Header_SIZE + Control_RPath_HEADER_SIZE)
 static Iface_DEFUN handleRPathQuery(struct Message* msg,
                                     struct ControlHandler_pvt* ch,
@@ -175,7 +176,7 @@ static Iface_DEFUN handleRPathQuery(struct Message* msg,
     routeHeader->flags |= RouteHeader_flags_CTRLMSG;
     return Iface_next(&ch->pub.coreIf, msg);
 }
-
+*/
 /**
  * Expects [ SwitchHeader ][ Ctrl ][ SupernodeQuery ][ data etc.... ]
 #define handleGetSnodeQuery_MIN_SIZE (Control_Header_SIZE + Control_GetSnode_HEADER_SIZE)
