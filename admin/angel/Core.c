@@ -24,12 +24,12 @@
 #include "crypto/random/Random.h"
 #include "crypto/random/nanotime/NanotimeEntropyProvider.h"
 #include "crypto/Sign_admin.h"
-#include "subnode/SubnodePathfinder.h"
-#include "subnode/SupernodeHunter_admin.h"
-#include "subnode/ReachabilityCollector_admin.h"
-#ifndef SUBNODE
+//#include "subnode/SubnodePathfinder.h"
+//#include "subnode/SupernodeHunter_admin.h"
+//#include "subnode/ReachabilityCollector_admin.h"
+//#ifndef SUBNODE
 #include "dht/Pathfinder.h"
-#endif
+//#endif
 #include "exception/Er.h"
 #include "interface/Iface.h"
 #include "util/events/UDPAddrIface.h"
@@ -355,20 +355,20 @@ void Core_init(struct Allocator* alloc,
     struct EncodingScheme* encodingScheme = NumberCompress_defineScheme(alloc);
 
     // The link between the Pathfinder and the core needs to be asynchronous.
-    struct SubnodePathfinder* spf = SubnodePathfinder_new(
-        alloc, logger, eventBase, rand, nc->myAddress, privateKey, encodingScheme);
-    struct ASynchronizer* spfAsync = ASynchronizer_new(alloc, eventBase, logger);
-    Iface_plumb(&spfAsync->ifA, &spf->eventIf);
-    EventEmitter_regPathfinderIface(nc->ee, &spfAsync->ifB);
+    //struct SubnodePathfinder* spf = SubnodePathfinder_new(
+    //    alloc, logger, eventBase, rand, nc->myAddress, privateKey, encodingScheme);
+    //struct ASynchronizer* spfAsync = ASynchronizer_new(alloc, eventBase, logger);
+    //Iface_plumb(&spfAsync->ifA, &spf->eventIf);
+    //EventEmitter_regPathfinderIface(nc->ee, &spfAsync->ifB);
 
-    #ifndef SUBNODE
+    //#ifndef SUBNODE
         struct Pathfinder* opf = Pathfinder_register(alloc, logger, eventBase, rand, admin);
         struct ASynchronizer* opfAsync = ASynchronizer_new(alloc, eventBase, logger);
         Iface_plumb(&opfAsync->ifA, &opf->eventIf);
         EventEmitter_regPathfinderIface(nc->ee, &opfAsync->ifB);
-    #endif
+    //#endif
 
-    SubnodePathfinder_start(spf);
+    //SubnodePathfinder_start(spf);
 
     // ------------------- Register RPC functions ----------------------- //
     UpperDistributor_admin_register(nc->upper, admin, alloc);
@@ -381,8 +381,8 @@ void Core_init(struct Allocator* alloc,
     ETHInterface_admin_register(eventBase, alloc, logger, admin, nc->ifController);
 #endif
 
-    SupernodeHunter_admin_register(spf->snh, admin, alloc);
-    ReachabilityCollector_admin_register(spf->rc, admin, alloc);
+    //SupernodeHunter_admin_register(spf->snh, admin, alloc);
+    //ReachabilityCollector_admin_register(spf->rc, admin, alloc);
 
     AuthorizedPasswords_init(admin, nc->ca, alloc);
     Admin_registerFunction("ping", adminPing, admin, false, NULL, admin);

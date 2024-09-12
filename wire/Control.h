@@ -106,6 +106,7 @@ Assert_compileTime(sizeof(struct Control_KeyPing) == Control_KeyPing_HEADER_SIZE
 #define Control_KeyPong_MAGIC Endian_hostToBigEndian32(0x89abcdef)
 
 
+/*
 #define Control_GETSNODE_QUERY_be Endian_hostToBigEndian16(7)
 #define Control_GETSNODE_QUERY_MAGIC Endian_hostToBigEndian32(0x736e6f71) // snoq
 #define Control_GETSNODE_REPLY_be Endian_hostToBigEndian16(8)
@@ -161,7 +162,7 @@ struct Control_RPath
     // The reverse path back to the node who sent the query
     uint8_t rpath_be[8];
 };
-
+*/
 static inline char* Control_typeString(uint16_t type_be)
 {
     if (type_be == Control_ERROR_be) {
@@ -174,6 +175,7 @@ static inline char* Control_typeString(uint16_t type_be)
         return "KEYPING";
     } else if (type_be == Control_KEYPONG_be) {
         return "KEYPONG";
+        /*
     } else if (type_be == Control_GETSNODE_QUERY_be) {
         return "GETSNODE_QUERY";
     } else if (type_be == Control_GETSNODE_REPLY_be) {
@@ -182,6 +184,7 @@ static inline char* Control_typeString(uint16_t type_be)
         return "RPATH_QUERY";
     } else if (type_be == Control_RPATH_REPLY_be) {
         return "RPATH_REPLY";
+        */
     } else {
         return "UNKNOWN";
     }
@@ -224,8 +227,8 @@ struct Control
         struct Control_Ping pong;
         struct Control_KeyPing keyPing;
         struct Control_Ping keyPong;
-        struct Control_GetSnode getSnode;
-        struct Control_RPath rpath;
+        // struct Control_GetSnode getSnode;
+        // struct Control_RPath rpath;
 
         /** The control packet content. */
         uint8_t bytes[4];
@@ -233,7 +236,8 @@ struct Control
 };
 // Control_KeyPing is the largest structure and thus defines the length of the "content" union.
 Assert_compileTime(
-    sizeof(struct Control) == (Control_Header_SIZE + Control_GetSnode_HEADER_SIZE)
+    // sizeof(struct Control) == (Control_Header_SIZE + Control_GetSnode_HEADER_SIZE)
+    sizeof(struct Control) == (Control_Header_SIZE)
 );
 
 #endif

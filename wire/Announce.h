@@ -262,12 +262,12 @@ struct Announce_Header
     // 1. Indicate that a subnode has changed its supernode
     // 2. Update a link state which affects best paths between clusters of nodes that
     //    are controlled by a given supernode.
-    uint8_t snodeIp[16];
+    // uint8_t snodeIp[16];
 
     // Milliseconds since the epoch when this message was crafted and reset flag
     uint8_t timeStampVersionFlags_be[8];
 };
-#define Announce_Header_SIZE 120
+#define Announce_Header_SIZE 104
 Assert_compileTime(sizeof(struct Announce_Header) == Announce_Header_SIZE);
 
 static inline int64_t Announce_Header_getTimestamp(struct Announce_Header* hdr)

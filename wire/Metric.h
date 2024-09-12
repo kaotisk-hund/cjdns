@@ -35,13 +35,13 @@
 // time.
 
 // The snode says this is a path to the node
-static const uint32_t Metric_SNODE_SAYS =      0xff100000;
+// static const uint32_t Metric_SNODE_SAYS =      0xff100000;
 
 // Node is a direct peer according to the SubnodePathfinder
 static const uint32_t Metric_PF_PEER =         0xff200000;
 
 // This is our discovered path to our snode
-static const uint32_t Metric_SNODE =           0xff300000;
+// static const uint32_t Metric_SNODE =           0xff300000;
 
 // Node is a direct peer according to the (dht) Pathfinder
 static const uint32_t Metric_DHT_PEER =        0xff400000;
