@@ -293,6 +293,7 @@ static Iface_DEFUN incomingFromCore(struct Message* msg, struct Iface* coreIf)
         Er_assert(Message_epush(msg, &routeHdr, RouteHeader_SIZE));
         return Iface_next(&ch->pub.switchPingerIf, msg);
 
+        /*
     } else if (ctrl->header.type_be == Control_GETSNODE_QUERY_be) {
         return handleGetSnodeQuery(msg, ch, label, labelStr);
 
@@ -309,6 +310,7 @@ static Iface_DEFUN incomingFromCore(struct Message* msg, struct Iface* coreIf)
 
     } else if (ctrl->header.type_be == Control_RPATH_QUERY_be) {
         return handleRPathQuery(msg, ch, label, labelStr);
+        */
     }
 
     Log_info(ch->log, "DROP control packet of unknown type from [%s], type [%d]",

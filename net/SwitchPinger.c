@@ -269,10 +269,10 @@ static void sendPing(String* data, void* sendPingContext)
         ctrl->header.type_be = Control_PING_be;
     } else if (p->pub.type == SwitchPinger_Type_KEYPING) {
         ctrl->header.type_be = Control_KEYPING_be;
-    } else if (p->pub.type == SwitchPinger_Type_GETSNODE) {
-        ctrl->header.type_be = Control_GETSNODE_QUERY_be;
-    } else if (p->pub.type == SwitchPinger_Type_RPATH) {
-        ctrl->header.type_be = Control_RPATH_QUERY_be;
+//    } else if (p->pub.type == SwitchPinger_Type_GETSNODE) {
+//        ctrl->header.type_be = Control_GETSNODE_QUERY_be;
+//    } else if (p->pub.type == SwitchPinger_Type_RPATH) {
+//        ctrl->header.type_be = Control_RPATH_QUERY_be;
     } else {
         Assert_failure("unexpected type");
     }
