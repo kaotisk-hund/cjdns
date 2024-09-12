@@ -15,16 +15,16 @@
 #include "crypto/random/Random.h"
 #include "crypto/Ca.h"
 #include "crypto/AddressCalc.h"
-#ifndef SUBNODE
+// #ifndef SUBNODE
 #include "dht/Pathfinder.h"
-#endif
+// #endif
 #include "io/Writer.h"
 #include "io/FileWriter.h"
 #include "util/log/Log.h"
 #include "memory/MallocAllocator.h"
 #include "memory/Allocator.h"
 #include "switch/SwitchCore.h"
-#include "subnode/SubnodePathfinder.h"
+// #include "subnode/SubnodePathfinder.h"
 #include "test/TestFramework.h"
 #include "util/log/WriterLog.h"
 #include "util/events/EventBase.h"
@@ -136,17 +136,17 @@ struct TestFramework* TestFramework_setUp(char* privateKey,
     Iface_plumb(&nc->tunAdapt->ipTunnelIf, &ipTunnel->tunInterface);
     Iface_plumb(&nc->upper->ipTunnelIf, &ipTunnel->nodeInterface);
 
-    struct SubnodePathfinder* spf = SubnodePathfinder_new(
-        allocator, logger, base, rand, nc->myAddress, privateKey, scheme);
-    EventEmitter_regPathfinderIface(nc->ee, &spf->eventIf);
+    //struct SubnodePathfinder* spf = SubnodePathfinder_new(
+    //    allocator, logger, base, rand, nc->myAddress, privateKey, scheme);
+    //EventEmitter_regPathfinderIface(nc->ee, &spf->eventIf);
 
-    #ifndef SUBNODE
+    //#ifndef SUBNODE
         struct Pathfinder* pf = Pathfinder_register(allocator, logger, base, rand, NULL);
         pf->fullVerify = true;
         EventEmitter_regPathfinderIface(nc->ee, &pf->eventIf);
-    #endif
+    //#endif
 
-    SubnodePathfinder_start(spf);
+    //SubnodePathfinder_start(spf);
 
     struct TestFramework* tf = Allocator_calloc(allocator, sizeof(struct TestFramework), 1);
     Identity_set(tf);

@@ -178,7 +178,6 @@ static Iface_DEFUN handleRPathQuery(struct Message* msg,
 
 /**
  * Expects [ SwitchHeader ][ Ctrl ][ SupernodeQuery ][ data etc.... ]
- */
 #define handleGetSnodeQuery_MIN_SIZE (Control_Header_SIZE + Control_GetSnode_HEADER_SIZE)
 static Iface_DEFUN handleGetSnodeQuery(struct Message* msg,
                                        struct ControlHandler_pvt* ch,
@@ -240,6 +239,7 @@ static Iface_DEFUN handleGetSnodeQuery(struct Message* msg,
 
     return Iface_next(&ch->pub.coreIf, msg);
 }
+ */
 
 /**
  * Handle an incoming control message from a switch.

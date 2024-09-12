@@ -131,53 +131,6 @@ static Iface_DEFUN messageFromControlHandler(struct Message* msg, struct Iface* 
             return Error(msg, "RUNT");
         }
 
-    } else if (ctrl->header.type_be == Control_GETSNODE_REPLY_be) {
-        Er_assert(Message_eshift(msg, -Control_Header_SIZE));
-        ctx->error = Error_NONE;
-        if (Message_getLength(msg) < Control_GetSnode_HEADER_SIZE) {
-            Log_debug(ctx->logger, "got runt GetSnode message, length: [%d]", Message_getLength(msg));
-            return Error(msg, "RUNT");
-        }
-        struct Control_GetSnode* hdr = (struct Control_GetSnode*) msg->msgbytes;
-        if (hdr->magic != Control_GETSNODE_REPLY_MAGIC) {
-            Log_debug(ctx->logger, "dropped invalid GetSnode");
-            return Error(msg, "INVALID");
-        }
-        if (Bits_isZero(hdr->snodeKey, 32)) {
-            Log_debug(ctx->logger, "Peer doesn't have an snode");
-            return NULL;
-        }
-        if (!AddressCalc_addressForPublicKey(ctx->incomingSnodeAddr.ip6.bytes, hdr->snodeKey)) {
-            Log_debug(ctx->logger, "dropped invalid GetSnode key");
-            return Error(msg, "INVALID");
-        }
-        ctx->incomingVersion = Endian_hostToBigEndian32(hdr->version_be);
-        Bits_memcpy(ctx->incomingSnodeAddr.key, hdr->snodeKey, 32);
-        uint64_t pathToSnode_be;
-        Bits_memcpy(&pathToSnode_be, hdr->pathToSnode_be, 8);
-        ctx->incomingSnodeAddr.path = Endian_bigEndianToHost64(pathToSnode_be);
-        ctx->incomingSnodeAddr.protocolVersion = Endian_bigEndianToHost32(hdr->snodeVersion_be);
-        ctx->incomingSnodeKbps = Endian_bigEndianToHost32(hdr->kbps_be);
-        Er_assert(Message_eshift(msg, -Control_GetSnode_HEADER_SIZE));
-
-    } else if (ctrl->header.type_be == Control_RPATH_REPLY_be) {
-        Er_assert(Message_eshift(msg, -Control_Header_SIZE));
-        ctx->error = Error_NONE;
-        if (Message_getLength(msg) < Control_RPath_HEADER_SIZE) {
-            Log_debug(ctx->logger, "got runt RPath message, length: [%d]", Message_getLength(msg));
-            return Error(msg, "RUNT");
-        }
-        struct Control_RPath* hdr = (struct Control_RPath*) msg->msgbytes;
-        if (hdr->magic != Control_RPATH_REPLY_MAGIC) {
-            Log_debug(ctx->logger, "dropped invalid RPATH (bad magic)");
-            return Error(msg, "INVALID");
-        }
-        ctx->incomingVersion = Endian_hostToBigEndian32(hdr->version_be);
-        uint64_t rpath_be;
-        Bits_memcpy(&rpath_be, hdr->rpath_be, 8);
-        ctx->rpath = Endian_bigEndianToHost64(rpath_be);
-        Er_assert(Message_eshift(msg, -Control_RPath_HEADER_SIZE));
-
     } else if (ctrl->header.type_be == Control_ERROR_be) {
         Er_assert(Message_eshift(msg, -Control_Header_SIZE));
         Assert_true((uint8_t*)&ctrl->content.error.errorType_be == msg->msgbytes);

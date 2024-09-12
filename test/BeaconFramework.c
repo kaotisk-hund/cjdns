@@ -22,7 +22,7 @@
 #include "util/Base32.h"
 #include "util/Checksum.h"
 #include "util/log/WriterLog.h"
-#include "subnode/SubnodePathfinder.h"
+//#include "subnode/SubnodePathfinder.h"
 #include "test/TestFramework.h"
 #include "wire/Headers.h"
 #include "wire/Ethernet.h"
@@ -105,6 +105,7 @@ static void checkLinkage(void* vTwoNodes)
     }
 
     //Log_debug(ctx->logger, "Checking linkage");
+    /*
     if (ReachabilityCollector_peerCount(ctx->nodeA->subnodePathfinder->rc) < 1) {
         notLinkedYet(ctx);
         return;
@@ -114,6 +115,7 @@ static void checkLinkage(void* vTwoNodes)
         notLinkedYet(ctx);
         return;
     }
+    */
 
     Log_debug(ctx->logger, "B seems to be linked with A");
     Log_debug(ctx->logger, "\n\nSetup Complete\n\n");
